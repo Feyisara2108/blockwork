@@ -1,23 +1,31 @@
 import type { Config } from 'tailwindcss'
 
+const token = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
-  content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/generated/**/*.{js,ts,jsx,tsx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       fontFamily: {
-        instrument: ['"Instrument Sans"', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        display: ['"Space Grotesk"', 'Inter', 'sans-serif'],
       },
       colors: {
-        gray: {
-          950: '#030712',
-        }
-      }
+        bg: token('bg'),
+        surface: token('surface'),
+        raised: token('raised'),
+        line: token('border'),
+        fg: token('text'),
+        muted: token('muted'),
+        dim: token('dim'),
+        btc: token('btc'),
+        'btc-deep': token('btc-deep'),
+        stx: token('stx'),
+        good: token('green'),
+        warn: token('amber'),
+        info: token('blue'),
+        bad: token('red'),
+      },
     },
   },
   plugins: [],

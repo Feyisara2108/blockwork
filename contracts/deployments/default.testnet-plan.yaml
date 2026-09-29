@@ -1,0 +1,17 @@
+id: 0
+name: Testnet deployment
+network: testnet
+stacks-node: https://api.testnet.hiro.so
+bitcoin-node: http://blockstack:blockstacksystem@bitcoind.testnet.stacks.co:18332
+plan:
+  batches:
+  - id: 0
+    transactions:
+    - transaction-type: contract-publish
+      contract-name: bounty-board-v2
+      expected-sender: ST1CT84KE73BCV45RS5BTMRWXGQM8FJXA3AW36PYS
+      cost: 131979
+      path: contracts/bounty-board-v2.clar
+      anchor-block-only: true
+      clarity-version: 6
+    epoch: '4.0'

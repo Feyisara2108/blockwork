@@ -1,51 +1,76 @@
-import React from 'react'
+"use client";
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { WalletConnect } from './WalletConnect'
-import NetworkBadge from './NetworkBadge'
-import Image from 'next/image'
-import logo from '@/public/logo.png'
-import github from '@/public/icon.png'
+import { useBoard } from '@/lib/board'
+import { explorer } from '@/lib/bounties'
 
-function Header() {
+export function Logo() {
   return (
-    <header className="
-      mt-[20px] md:mt-[50px] 
-      mx-auto 
-      px-4 md:px-6 
-      py-4 
-      bg-[#1F1E1F] 
-      border-[#1F1E1F] 
-      flex flex-col md:flex-row 
-      items-center justify-between 
-      w-[95%] max-w-[788px] 
-      rounded-[24px] md:rounded-[32px]
-      gap-4 md:gap-0
-    ">
-      <div className="flex items-center gap-1">
-        <div className="flex items-center gap-3">
-          <Image src={logo} alt="logo" width={32} height={32} />
-          <span className="text-[#FFFFFF] text-[20px] md:text-[24.77px] font-medium font-instrument">
-            SfdStacks
-          </span>
-        </div>  
-        <NetworkBadge />
-      </div>
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden>
+      <rect x="2" y="2" width="11" height="11" rx="2.5" fill="rgb(var(--btc))" />
+      <rect x="15" y="2" width="11" height="11" rx="2.5" fill="rgb(var(--btc) / 0.45)" />
+      <rect x="2" y="15" width="11" height="11" rx="2.5" fill="rgb(var(--btc) / 0.45)" />
+      <rect x="15" y="15" width="11" height="11" rx="2.5" fill="rgb(var(--btc) / 0.2)" />
+    </svg>
+  )
+}
 
-      <div className='flex items-center space-x-4 md:space-x-6'>
-      <a 
-            href="https://github.com/scaffold-stack/scaffold-stack" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="no-underline" 
-          >
-        <div className='hidden sm:flex space-x-2 items-center justify-center cursor-pointer hover:opacity-80 transition-opacity'>
-          <Image src={github} alt="github" width={20} height={20} />
-          <h1 className='text-[14px] md:text-[16px] text-[#8F8D8E] font-instrument'>Github</h1>
+const NAV = [
+  { href: '/', label: 'Bounties' },
+  { href: '/leaderboard', label: 'Leaderboard' },
+]
+
+function BlockTicker() {
+  const { height } = useBoard()
+  if (!height) return null
+  return (
+    <a
+      href={explorer.block(height)}
+      target="_blank"
+      rel="noreferrer"
+      title="Latest Bitcoin block seen by Stacks testnet. Deadlines and timeouts count these blocks."
+      className="hidden items-center gap-2 rounded-lg border border-line bg-surface px-2.5 py-1.5 font-mono text-[12px] text-muted hover:text-fg md:inline-flex"
+    >
+      <span className="relative flex h-2 w-2">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-btc opacity-60" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-btc" />
+      </span>
+      BTC #{height.toLocaleString()}
+    </a>
+  )
+}
+
+export default function Header() {
+  const path = usePathname()
+  return (
+    <header className="sticky top-0 z-30 border-b border-line/70 bg-bg/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4 sm:px-6">
+        <Link href="/" className="flex items-center gap-2.5">
+          <Logo />
+          <span className="display text-[17px] font-semibold">Blockwork</span>
+        </Link>
+        <nav className="hidden items-center gap-1 sm:flex">
+          {NAV.map(n => (
+            <Link
+              key={n.href}
+              href={n.href}
+              className={`rounded-lg px-3 py-1.5 text-[14px] transition ${
+                path === n.href ? 'bg-raised text-fg' : 'text-muted hover:text-fg'
+              }`}
+            >
+              {n.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="ml-auto flex items-center gap-3">
+          <BlockTicker />
+          <Link href="/post" className="btn-primary btn-sm hidden sm:inline-flex">
+            Post a bounty
+          </Link>
+          <WalletConnect />
         </div>
-        </a>
-        <WalletConnect />
       </div>
     </header>
   )
 }
-
-export default Header

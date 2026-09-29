@@ -1,0 +1,11 @@
+{
+  "network": "testnet",
+  "deployed_at": "2026-09-29T17:32:33.923487+00:00",
+  "contracts": {
+    "bounty-board-v2": {
+      "contract_id": "ST1CT84KE73BCV45RS5BTMRWXGQM8FJXA3AW36PYS.bounty-board-v2",
+      "tx_id": "0xb0e724eb7a462c53d676e1b201cc7c16148b40511747dc93418f49e2bfc52b55",
+      "block_height": 0
+    }
+  }
+}
