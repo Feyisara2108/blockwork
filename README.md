@@ -4,7 +4,7 @@ Post a task on Stacks with the STX reward locked in a Clarity contract. A worker
 
 Built with [Scaffold Stacks](https://github.com/scaffold-stack/scaffold-stack) for the Scaffold Stacks 20 Builders Challenge.
 
-- **Live app:** _TODO after Vercel deploy_
+- **Live app:** https://blockwork-sooty.vercel.app
 - **Contract (testnet):** [`ST1CT84KE73BCV45RS5BTMRWXGQM8FJXA3AW36PYS.bounty-board-v2`](https://explorer.hiro.so/address/ST1CT84KE73BCV45RS5BTMRWXGQM8FJXA3AW36PYS.bounty-board-v2?chain=testnet)
 
 ## Features
